@@ -1,0 +1,175 @@
+{
+  "workspace": {
+    "name": "Untitled Workspace",
+    "language": "en",
+    "theme": "#F8F8F8",
+    "logo_url": "logo.png",
+    "favicon_url": null,
+    "brand_name": "Quote Proposal",
+    "main_color": "#0E33D6",
+    "font_family": "Inter",
+    "font_color": null
+  },
+  "kanban": {
+    "access_control": {
+      "is_public": false,
+      "required_roles": []
+    }
+  },
+  "home": {
+    "access_control": {
+      "is_public": false,
+      "required_roles": []
+    }
+  },
+  "jobs": [],
+  "hooks": [],
+  "forms": [
+    {
+      "id": "16ad1ad5-4c24-4b63-90ec-e70725e22718",
+      "path": "quote-approval",
+      "title": "Quote Approval",
+      "is_initial": false,
+      "auto_start": false,
+      "allow_restart": false,
+      "end_message": null,
+      "start_message": "Review and approves the matched products with minimal inputs.",
+      "error_message": null,
+      "welcome_title": null,
+      "timeout_message": null,
+      "start_button_text": null,
+      "restart_button_text": null,
+      "file": "quote_approval.py",
+      "workflow_position": [
+        1065.0,
+        225.0
+      ],
+      "transitions": [
+        {
+          "target_id": "504bd7cc-ed0e-4df1-807a-9de104b75652",
+          "target_type": "scripts",
+          "type": "forms:finished",
+          "id": "khmx1ga",
+          "condition_value": null
+        }
+      ],
+      "notification_trigger": {
+        "variable_name": "finance_email",
+        "enabled": true
+      },
+      "access_control": {
+        "is_public": false,
+        "required_roles": []
+      }
+    },
+    {
+      "id": "10db014c-b187-4e6e-ae4f-a952a0944f07",
+      "path": "quote-proposal",
+      "title": "Quote Proposal",
+      "is_initial": true,
+      "auto_start": false,
+      "allow_restart": false,
+      "end_message": null,
+      "start_message": "Upload a file or photo of your proposal. Our OCR technology will extract the contents. For this template, the example database is composed of office itens.",
+      "error_message": null,
+      "welcome_title": null,
+      "timeout_message": null,
+      "start_button_text": null,
+      "restart_button_text": null,
+      "file": "quote_proposal.py",
+      "workflow_position": [
+        675.0,
+        15.0
+      ],
+      "transitions": [
+        {
+          "target_id": "019efd92-de37-44f9-b881-ca58d2910865",
+          "target_type": "scripts",
+          "type": "forms:finished",
+          "id": "n99vszv",
+          "condition_value": null
+        }
+      ],
+      "notification_trigger": {
+        "variable_name": "assignee_emails",
+        "enabled": false
+      },
+      "access_control": {
+        "is_public": true,
+        "required_roles": []
+      }
+    },
+    {
+      "id": "e5c289f3-91c9-48ae-8d18-dce5ddf574f9",
+      "path": "download-quote",
+      "title": "Download Quote",
+      "is_initial": false,
+      "auto_start": true,
+      "allow_restart": false,
+      "end_message": null,
+      "start_message": null,
+      "error_message": null,
+      "welcome_title": null,
+      "timeout_message": null,
+      "start_button_text": null,
+      "restart_button_text": null,
+      "file": "download_quote.py",
+      "workflow_position": [
+        1455.0,
+        450.0
+      ],
+      "transitions": [],
+      "notification_trigger": {
+        "variable_name": "email",
+        "enabled": true
+      },
+      "access_control": {
+        "is_public": false,
+        "required_roles": []
+      }
+    }
+  ],
+  "scripts": [
+    {
+      "id": "019efd92-de37-44f9-b881-ca58d2910865",
+      "file": "generate_quote.py",
+      "title": "Generate Quote",
+      "is_initial": false,
+      "workflow_position": [
+        885.0,
+        120.0
+      ],
+      "transitions": [
+        {
+          "target_id": "16ad1ad5-4c24-4b63-90ec-e70725e22718",
+          "target_type": "forms",
+          "type": "scripts:finished",
+          "id": "l9aogmn",
+          "condition_value": null
+        }
+      ]
+    },
+    {
+      "id": "504bd7cc-ed0e-4df1-807a-9de104b75652",
+      "file": "generate_quote_pdf.py",
+      "title": "Generate Quote PDF",
+      "is_initial": false,
+      "workflow_position": [
+        1245.0,
+        330.0
+      ],
+      "transitions": [
+        {
+          "target_id": "e5c289f3-91c9-48ae-8d18-dce5ddf574f9",
+          "target_type": "forms",
+          "type": "scripts:finished",
+          "id": "vy9a0wo",
+          "condition_value": null
+        }
+      ]
+    }
+  ],
+  "iterators": [],
+  "conditions": [],
+  "version": "11.0"
+}
