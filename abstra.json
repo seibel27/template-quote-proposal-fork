@@ -35,8 +35,8 @@
       "restart_button_text": null,
       "file": "quote_approval.py",
       "workflow_position": [
-        1065,
-        225
+        1065.0,
+        225.0
       ],
       "transitions": [
         {
@@ -72,8 +72,8 @@
       "restart_button_text": null,
       "file": "quote_proposal.py",
       "workflow_position": [
-        675,
-        15
+        675.0,
+        15.0
       ],
       "transitions": [
         {
@@ -109,8 +109,8 @@
       "restart_button_text": null,
       "file": "download_quote.py",
       "workflow_position": [
-        1455,
-        450
+        1455.0,
+        450.0
       ],
       "transitions": [],
       "notification_trigger": {
@@ -130,8 +130,8 @@
       "title": "Generate Quote",
       "is_initial": false,
       "workflow_position": [
-        885,
-        120
+        885.0,
+        120.0
       ],
       "transitions": [
         {
@@ -139,7 +139,7 @@
           "target_type": "forms",
           "type": "task",
           "id": "l9aogmn",
-          "task_type": "success"
+          "task_type": "updated_proposal"
         }
       ]
     },
@@ -149,8 +149,8 @@
       "title": "Generate Quote PDF",
       "is_initial": false,
       "workflow_position": [
-        1245,
-        330
+        1245.0,
+        330.0
       ],
       "transitions": [
         {

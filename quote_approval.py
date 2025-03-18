@@ -1,18 +1,6 @@
-from abstra.compat import use_legacy_threads
-"""
-Calling the use_legacy_threads function allows using
-the legacy threads in versions > 3.0.0
-https://docs.abstra.io/guides/use-legacy-threads/
-
-The new way of using workflows is with tasks. Learn more
-at https://docs.abstra.io/concepts/tasks/ and contact us
-on any issues during your migration
-"""
-use_legacy_threads("forms")
-
-import abstra.workflows as aw
 import pandas as pd
-from abstra.forms import reactive
+from abstra.forms import reactive, display
+from abstra.tasks import send_task, get_tasks
 
 price_markdown = """
 ## Total: {total}
@@ -32,7 +20,13 @@ products_database = df.to_dict(orient="records")
 
 products_ids = set([str(product["id"]) for product in products_database])
 
-updated_proposal = aw.get_data("updated_proposal")
+# get tasks with error handling
+tasks = get_tasks()
+if not tasks:
+    display("No proposal to update. Please create a proposal first.")
+    exit()  # Exit the stage if no tasks are available
+
+updated_proposal = tasks[0].payload
 
 dropdown_options = [{"label": "(Product Unavailable)", "value": "none"}]
 for prod in products_database:
@@ -117,4 +111,6 @@ for product_id, in_stock_id in result.items():
             }
         )
 
-aw.set_data("estimate", estimate)
+send_task("estimate",
+          estimate,
+)

@@ -1,24 +1,16 @@
-from abstra.compat import use_legacy_threads
-"""
-Calling the use_legacy_threads function allows using
-the legacy threads in versions > 3.0.0
-https://docs.abstra.io/guides/use-legacy-threads/
-
-The new way of using workflows is with tasks. Learn more
-at https://docs.abstra.io/concepts/tasks/ and contact us
-on any issues during your migration
-"""
-use_legacy_threads("scripts")
-
 import json
 
-import abstra.workflows as aw
 import pandas as pd
 from abstra.ai import prompt
+from abstra.tasks import get_tasks, send_task, get_trigger_task
 
 file_path = "mock_database.csv"
 
-proposal = aw.get_data("proposal")
+
+proposal_task = get_trigger_task()
+print(proposal_task)
+proposal = proposal_task["payload"]
+print(proposal)
 proposal_string = json.dumps(proposal)
 
 # open files
@@ -44,6 +36,7 @@ match = prompt(
 )
 
 updated_proposal = json.loads(match["updated_proposal"])
-aw.set_data("updated_proposal", updated_proposal)
+
+send_task("updated_proposal", updated_proposal)
 for p in updated_proposal:
     print(p)
