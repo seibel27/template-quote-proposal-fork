@@ -1,8 +1,10 @@
+
+
 import json
 import os
 from uuid import uuid4
 
-import abstra.workflows as aw
+
 from abstra.ai import prompt
 from abstra.common import get_persistent_dir
 from abstra.forms import ListItemSchema, Page
@@ -70,7 +72,7 @@ aw.set_data("email", page["email"])
 aw.set_data("company", page["company"].title())
 aw.set_data("name", page["name"].title())
 
-aw.set_title("Quote proposal - Scranton")
+# set_data ===== send_task (lista/dict)
 
 finance_email = os.getenv("FINANCE_EMAIL")
 

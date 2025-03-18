@@ -1,4 +1,4 @@
-abstra==2.26.6
+abstra==3.11.1
 fpdf==1.7.2
 google-api-python-client==2.129.0
 pandas==2.2.2

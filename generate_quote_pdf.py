@@ -1,3 +1,15 @@
+from abstra.compat import use_legacy_threads
+"""
+Calling the use_legacy_threads function allows using
+the legacy threads in versions > 3.0.0
+https://docs.abstra.io/guides/use-legacy-threads/
+
+The new way of using workflows is with tasks. Learn more
+at https://docs.abstra.io/concepts/tasks/ and contact us
+on any issues during your migration
+"""
+use_legacy_threads("scripts")
+
 import abstra.workflows as aw
 from abstra.common import get_persistent_dir
 from fpdf import FPDF
