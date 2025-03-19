@@ -32,6 +32,7 @@ Sincerely, Michael Scott - Sales Manager\n
 Scranton
 
 """
+task.complete()
 
 (
     af.Page()
@@ -40,4 +41,3 @@ Scranton
     .run(end_program=True)
 )
 
-task.complete()
