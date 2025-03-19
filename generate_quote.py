@@ -7,10 +7,8 @@ from abstra.tasks import get_tasks, send_task, get_trigger_task
 file_path = "mock_database.csv"
 
 
-proposal_task = get_trigger_task()
-print(proposal_task)
-proposal = proposal_task["payload"]
-print(proposal)
+proposal = get_trigger_task().payload
+
 proposal_string = json.dumps(proposal)
 
 # open files
@@ -37,6 +35,10 @@ match = prompt(
 
 updated_proposal = json.loads(match["updated_proposal"])
 
-send_task("updated_proposal", updated_proposal)
-for p in updated_proposal:
-    print(p)
+send_task(
+    "updated_proposal",
+    {
+        "proposal": updated_proposal,
+    },
+)
+
