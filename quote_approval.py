@@ -26,7 +26,8 @@ if not tasks:
     display("No proposal to update. Please create a proposal first.")
     exit()  # Exit the stage if no tasks are available
 
-updated_proposal = tasks[0].payload
+task = tasks[0]
+updated_proposal = task.payload["proposal"]
 
 dropdown_options = [{"label": "(Product Unavailable)", "value": "none"}]
 for prod in products_database:
@@ -41,8 +42,8 @@ def render(partial):
     total = 0
 
     for product in updated_proposal:
-        product_id = str(product["product_id"])
-
+        product_id = product["product_id"]
+        
         if product_id not in products_ids:
             selected_prod = partial.read_dropdown(
                 f"{product['quantity']} x {product['product']}",
@@ -112,5 +113,5 @@ for product_id, in_stock_id in result.items():
         )
 
 send_task("estimate",
-          estimate,
+          {"estimate": estimate}
 )

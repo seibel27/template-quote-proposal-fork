@@ -6,8 +6,9 @@ from abstra.tasks import get_tasks, send_task, get_trigger_task
 
 file_path = "mock_database.csv"
 
-
-proposal = get_trigger_task().payload
+task = get_trigger_task()
+payload = task.payload
+proposal = payload["proposal"]
 
 proposal_string = json.dumps(proposal)
 
@@ -34,11 +35,10 @@ match = prompt(
 )
 
 updated_proposal = json.loads(match["updated_proposal"])
+payload["proposal"] = updated_proposal
 
 send_task(
     "updated_proposal",
-    {
-        "proposal": updated_proposal,
-    },
+    payload
 )
-
+task.complete()
