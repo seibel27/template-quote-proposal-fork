@@ -9,8 +9,11 @@ file_path = "mock_database.csv"
 task = get_trigger_task()
 payload = task.payload
 proposal = payload["proposal"]
-
 proposal_string = json.dumps(proposal)
+# get client's email, company and name
+client_email = payload["email"]
+company_name = payload["company"]
+client_name = payload["name"]
 
 # open files
 df = pd.read_csv(file_path)
@@ -36,6 +39,8 @@ match = prompt(
 
 updated_proposal = json.loads(match["updated_proposal"])
 payload["proposal"] = updated_proposal
+
+payload.update({"email": client_email, "company": company_name, "name": client_name})
 
 send_task(
     "updated_proposal",

@@ -44,7 +44,7 @@
           "target_type": "scripts",
           "type": "task",
           "id": "khmx1ga",
-          "task_type": "success"
+          "task_type": "estimate"
         }
       ],
       "notification_trigger": {
@@ -158,7 +158,7 @@
           "target_type": "forms",
           "type": "task",
           "id": "vy9a0wo",
-          "task_type": "success"
+          "task_type": "client_data"
         }
       ]
     }

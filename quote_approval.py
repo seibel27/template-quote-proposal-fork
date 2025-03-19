@@ -28,6 +28,10 @@ if not tasks:
 
 task = tasks[0]
 updated_proposal = task.payload["proposal"]
+# get client's email, company and name
+client_email = task.payload["email"]
+company_name = task.payload["company"]
+client_name = task.payload["name"]
 
 dropdown_options = [{"label": "(Product Unavailable)", "value": "none"}]
 for prod in products_database:
@@ -112,6 +116,13 @@ for product_id, in_stock_id in result.items():
             }
         )
 
-send_task("estimate",
-          {"estimate": estimate}
+send_task(
+    "estimate",
+    {
+        "estimate": estimate,
+        "email": client_email,
+        "company": company_name,
+        "name": client_name, 
+    }
 )
+task.complete()
