@@ -5,6 +5,7 @@ from abstra.common import get_persistent_dir
 tasks = get_tasks()
 if not tasks:
     display("No data to update. Please receive some first.")
+    tasks[0].complete()
     exit()  # Exit the stage if no tasks are available
 
 task = tasks[0]
