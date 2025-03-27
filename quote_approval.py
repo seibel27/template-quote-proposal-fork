@@ -1,6 +1,6 @@
-import abstra.workflows as aw
 import pandas as pd
-from abstra.forms import reactive
+from abstra.forms import reactive, display
+from abstra.tasks import send_task, get_tasks
 
 price_markdown = """
 ## Total: {total}
@@ -20,7 +20,18 @@ products_database = df.to_dict(orient="records")
 
 products_ids = set([str(product["id"]) for product in products_database])
 
-updated_proposal = aw.get_data("updated_proposal")
+# get tasks with error handling
+tasks = get_tasks()
+if not tasks:
+    display("No proposal to update. Please create a proposal first.")
+    exit()  # Exit the stage if no tasks are available
+
+task = tasks[0]
+updated_proposal = task.payload["proposal"]
+# get client's email, company and name
+client_email = task.payload["email"]
+company_name = task.payload["company"]
+client_name = task.payload["name"]
 
 dropdown_options = [{"label": "(Product Unavailable)", "value": "none"}]
 for prod in products_database:
@@ -35,8 +46,8 @@ def render(partial):
     total = 0
 
     for product in updated_proposal:
-        product_id = str(product["product_id"])
-
+        product_id = product["product_id"]
+        
         if product_id not in products_ids:
             selected_prod = partial.read_dropdown(
                 f"{product['quantity']} x {product['product']}",
@@ -105,4 +116,13 @@ for product_id, in_stock_id in result.items():
             }
         )
 
-aw.set_data("estimate", estimate)
+send_task(
+    "estimate",
+    {
+        "estimate": estimate,
+        "email": client_email,
+        "company": company_name,
+        "name": client_name, 
+    }
+)
+task.complete()

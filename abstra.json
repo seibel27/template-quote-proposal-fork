@@ -10,12 +10,6 @@
     "font_family": "Inter",
     "font_color": null
   },
-  "kanban": {
-    "access_control": {
-      "is_public": false,
-      "required_roles": []
-    }
-  },
   "home": {
     "access_control": {
       "is_public": false,
@@ -48,9 +42,9 @@
         {
           "target_id": "504bd7cc-ed0e-4df1-807a-9de104b75652",
           "target_type": "scripts",
-          "type": "forms:finished",
+          "type": "task",
           "id": "khmx1ga",
-          "condition_value": null
+          "task_type": "estimate"
         }
       ],
       "notification_trigger": {
@@ -85,9 +79,9 @@
         {
           "target_id": "019efd92-de37-44f9-b881-ca58d2910865",
           "target_type": "scripts",
-          "type": "forms:finished",
+          "type": "task",
           "id": "n99vszv",
-          "condition_value": null
+          "task_type": "proposal_data"
         }
       ],
       "notification_trigger": {
@@ -143,9 +137,9 @@
         {
           "target_id": "16ad1ad5-4c24-4b63-90ec-e70725e22718",
           "target_type": "forms",
-          "type": "scripts:finished",
+          "type": "task",
           "id": "l9aogmn",
-          "condition_value": null
+          "task_type": "updated_proposal"
         }
       ]
     },
@@ -162,14 +156,14 @@
         {
           "target_id": "e5c289f3-91c9-48ae-8d18-dce5ddf574f9",
           "target_type": "forms",
-          "type": "scripts:finished",
+          "type": "task",
           "id": "vy9a0wo",
-          "condition_value": null
+          "task_type": "client_data"
         }
       ]
     }
   ],
-  "iterators": [],
-  "conditions": [],
-  "version": "11.0"
+  "agents": [],
+  "clients": [],
+  "version": "13.0"
 }

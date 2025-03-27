@@ -1,13 +1,19 @@
 import json
 
-import abstra.workflows as aw
 import pandas as pd
 from abstra.ai import prompt
+from abstra.tasks import get_tasks, send_task, get_trigger_task
 
 file_path = "mock_database.csv"
 
-proposal = aw.get_data("proposal")
+task = get_trigger_task()
+payload = task.payload
+proposal = payload["proposal"]
 proposal_string = json.dumps(proposal)
+# get client's email, company and name
+client_email = payload["email"]
+company_name = payload["company"]
+client_name = payload["name"]
 
 # open files
 df = pd.read_csv(file_path)
@@ -32,6 +38,12 @@ match = prompt(
 )
 
 updated_proposal = json.loads(match["updated_proposal"])
-aw.set_data("updated_proposal", updated_proposal)
-for p in updated_proposal:
-    print(p)
+payload["proposal"] = updated_proposal
+
+payload.update({"email": client_email, "company": company_name, "name": client_name})
+
+send_task(
+    "updated_proposal",
+    payload
+)
+task.complete()

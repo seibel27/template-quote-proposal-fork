@@ -1,9 +1,19 @@
 import abstra.forms as af
-import abstra.workflows as aw
+from abstra.tasks import get_tasks
 from abstra.common import get_persistent_dir
 
-company_name = aw.get_data("company")
-client_name = aw.get_data("name")
+tasks = get_tasks()
+if not tasks:
+    display("No data to update. Please receive some first.")
+    tasks[0].complete()
+    exit()  # Exit the stage if no tasks are available
+
+task = tasks[0]
+client_data = task.payload
+# get client's email, company and name
+client_email = client_data["email"]
+company_name = client_data["company"]
+client_name = client_data["name"]
 
 persistent_dir = get_persistent_dir()
 file_path = persistent_dir / f"{company_name} Quote.pdf"
@@ -23,6 +33,7 @@ Sincerely, Michael Scott - Sales Manager\n
 Scranton
 
 """
+task.complete()
 
 (
     af.Page()
@@ -30,3 +41,4 @@ Scranton
     .display_file(file_path, download_text="Download Quote")
     .run(end_program=True)
 )
+

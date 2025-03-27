@@ -10,7 +10,7 @@ Integrations:
 
 To customize this template for your team and build a lot more, <a href="https://meet.abstra.app/demo?url=template-quote-proposal" target="_blank">book a demonstration here</a>.
 
-![image](https://github.com/user-attachments/assets/e08469b2-9368-4a58-8a16-ca2347780fe3)
+![image](https://github.com/user-attachments/assets/3f45509f-cf3d-4a7d-9e6a-7aeeec84fb41)
 
 
 ## Initial Configuration

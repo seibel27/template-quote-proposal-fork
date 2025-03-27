@@ -1,10 +1,19 @@
-import abstra.workflows as aw
+from abstra.tasks import get_trigger_task, send_task
 from abstra.common import get_persistent_dir
 from fpdf import FPDF
-
+'''
 company_name = aw.get_data("company")
 client_name = aw.get_data("name")
 client_email = aw.get_data("email")
+'''
+# get data
+task = get_trigger_task()
+payload = task.payload
+estimate = payload["estimate"]
+client_name = payload["name"]
+client_email = payload["email"]
+company_name = payload["company"]
+
 
 persistent_dir = get_persistent_dir()
 file_path = persistent_dir / f"{company_name} Quote.pdf"
@@ -94,7 +103,6 @@ class PDF(FPDF):
         self.ln(line)
 
 
-estimate = aw.get_data("estimate")
 estimate_table, unavailable_products = dict_to_table(estimate)
 
 # generate pdf
@@ -110,3 +118,13 @@ if unavailable_products:
     pdf.chapter_body("Unavailable Products: " + list_to_string(unavailable_products))
 
 pdf.output(file_path)
+
+send_task(
+    "client_data",
+    {
+        "email": client_email,
+        "company": company_name,
+        "name": client_name,
+    }
+)
+task.complete()

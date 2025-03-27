@@ -2,7 +2,7 @@ import json
 import os
 from uuid import uuid4
 
-import abstra.workflows as aw
+from abstra.tasks import send_task
 from abstra.ai import prompt
 from abstra.common import get_persistent_dir
 from abstra.forms import ListItemSchema, Page
@@ -64,14 +64,16 @@ for p in proposal:
     p["database_match"] = ""
     p["product_id"] = ""
 
-
-aw.set_data("proposal", proposal)
-aw.set_data("email", page["email"])
-aw.set_data("company", page["company"].title())
-aw.set_data("name", page["name"].title())
-
-aw.set_title("Quote proposal - Scranton")
-
 finance_email = os.getenv("FINANCE_EMAIL")
+print(f"finance email é {finance_email}")
 
-aw.set_data("finance_email", finance_email)
+send_task(
+    "proposal_data", 
+    {
+        "proposal": proposal,
+        "email": page["email"],
+        "company": page["company"].title(),
+        "name": page["name"].title(),
+        "finance_email": finance_email,
+    },
+)
